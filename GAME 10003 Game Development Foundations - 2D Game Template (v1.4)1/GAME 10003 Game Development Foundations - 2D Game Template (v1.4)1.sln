@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36603.0 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GAME 10003 Game Development Foundations - 2D Game Template (v1.4)1", "GAME 10003 Game Development Foundations - 2D Game Template (v1.4)1.csproj", "{DFE37D5E-2269-45A7-8CEA-733B2246AC42}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DFE37D5E-2269-45A7-8CEA-733B2246AC42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFE37D5E-2269-45A7-8CEA-733B2246AC42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFE37D5E-2269-45A7-8CEA-733B2246AC42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFE37D5E-2269-45A7-8CEA-733B2246AC42}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {294C470B-83EE-49F0-B572-E7CE29DE41DB}
+	EndGlobalSection
+EndGlobal
