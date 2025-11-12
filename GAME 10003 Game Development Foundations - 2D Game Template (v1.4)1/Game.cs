@@ -5,17 +5,14 @@ namespace MohawkGame2D
 {
     public class Game
     {
-        // objects
         Paddle leftPaddle;
         Paddle rightPaddle;
         Ball ball;
 
-        // movement
         float windowWidth = 400;
         float windowHeight = 400;
         float paddleSpeed = 5f;
 
-        // Score tracking
         int leftScore = 0;
         int rightScore = 0;
 
@@ -24,7 +21,6 @@ namespace MohawkGame2D
             Window.SetTitle("Pong Clone");
             Window.SetSize((int)windowWidth, (int)windowHeight);
 
-            // color to differentiate paddles
             leftPaddle = new Paddle(new Vector2(20, windowHeight / 2 - 30), new Vector2(10, 60), Color.Red);
             rightPaddle = new Paddle(new Vector2(windowWidth - 30, windowHeight / 2 - 30), new Vector2(10, 60), Color.Blue);
 
@@ -36,20 +32,27 @@ namespace MohawkGame2D
             HandleInput();
             ball.Move();
 
-            // collision to keep the ball within the frame 
+            // bounce off top/bottom
             if (ball.position.Y <= 0 || ball.position.Y + ball.size.Y >= windowHeight)
             {
                 ball.velocity.Y *= -1;
+                ball.ChangeColor(); // color change on every bounce
             }
 
-            // collisions but with the paddles
+            // bounce off paddles
             if (Collides(ball, leftPaddle) && ball.velocity.X < 0)
+            {
                 ball.velocity.X *= -1;
+                ball.ChangeColor(); // color change on paddle hit
+            }
 
             if (Collides(ball, rightPaddle) && ball.velocity.X > 0)
+            {
                 ball.velocity.X *= -1;
+                ball.ChangeColor(); // color change on paddle hit
+            }
 
-            // scoring 
+            // scoring
             if (ball.position.X < 0)
             {
                 rightScore++;
@@ -66,30 +69,26 @@ namespace MohawkGame2D
 
         void HandleInput()
         {
-            // Left paddle (W/S)
             if (Input.IsKeyboardKeyDown(KeyboardInput.W))
                 leftPaddle.position.Y -= paddleSpeed;
             if (Input.IsKeyboardKeyDown(KeyboardInput.S))
                 leftPaddle.position.Y += paddleSpeed;
 
-            // Right paddle (Up/Down)
             if (Input.IsKeyboardKeyDown(KeyboardInput.Up))
                 rightPaddle.position.Y -= paddleSpeed;
             if (Input.IsKeyboardKeyDown(KeyboardInput.Down))
                 rightPaddle.position.Y += paddleSpeed;
 
-            // Clamps the paddle within the window 
             leftPaddle.position.Y = Math.Clamp(leftPaddle.position.Y, 0, windowHeight - leftPaddle.size.Y);
             rightPaddle.position.Y = Math.Clamp(rightPaddle.position.Y, 0, windowHeight - rightPaddle.size.Y);
         }
 
         void ResetBall(int direction)
         {
-            // Center the ball
             ball.position = new Vector2(windowWidth / 2 - ball.size.X / 2, windowHeight / 2 - ball.size.Y / 2);
-
             float randomY = Random.Float(-2f, 2f);
             ball.velocity = new Vector2(4 * direction, randomY);
+            ball.ChangeColor(); // new color on reset as well
         }
 
         bool Collides(Ball b, Paddle p)
@@ -102,17 +101,14 @@ namespace MohawkGame2D
 
         void DrawScene()
         {
-            // background
             Draw.FillColor = Color.Black;
             Draw.LineColor = Color.Black;
             Draw.Rectangle(new Vector2(0, 0), new Vector2(windowWidth, windowHeight));
 
-            // paddles and ball render
             leftPaddle.Render();
             rightPaddle.Render();
             ball.Render();
 
-            // print score to console, not done YET
             Console.WriteLine($"Left: {leftScore} | Right: {rightScore}");
         }
     }
@@ -143,6 +139,7 @@ namespace MohawkGame2D
         public Vector2 position;
         public Vector2 size;
         public Vector2 velocity = new Vector2(4, 2);
+        public Color color = Color.White;
 
         public Ball(Vector2 pos, Vector2 sz)
         {
@@ -155,12 +152,16 @@ namespace MohawkGame2D
             position += velocity;
         }
 
+        public void ChangeColor()
+        {
+            color = Random.Color(); 
+        }
+
         public void Render()
         {
-            Draw.FillColor = Color.White;
+            Draw.FillColor = color;
             Draw.LineColor = Color.Black;
             Draw.Rectangle(position, size);
         }
     }
 }
-
