@@ -24,7 +24,7 @@ namespace MohawkGame2D
 
         public void Setup()
         {
-            Window.SetTitle("Pong Clone");
+            Window.SetTitle("Red vs Blue(Pong)");
             Window.SetSize((int)windowWidth, (int)windowHeight);
 
             leftPaddle = new Paddle(new Vector2(20, windowHeight / 2 - 30), new Vector2(10, 60), Color.Red);
@@ -64,7 +64,7 @@ namespace MohawkGame2D
             {
                 ball.Move();
 
-                // bounce off top/bottom
+                // bounce off top n bottom
                 if (ball.position.Y <= 0 || ball.position.Y + ball.size.Y >= windowHeight)
                 {
                     ball.velocity.Y *= -1;
@@ -88,7 +88,7 @@ namespace MohawkGame2D
                     ball.IncreaseSpeed();
                 }
 
-                // scoring
+                // scoring 
                 if (ball.position.X < 0)
                 {
                     score.AddRightPoint();
@@ -108,7 +108,7 @@ namespace MohawkGame2D
 
         void HandleInput()
         {
-            // Player controls left paddle
+            // Player controls the left paddle (Red)
             if (Input.IsKeyboardKeyDown(KeyboardInput.W))
                 leftPaddle.position.Y -= paddleSpeed;
             if (Input.IsKeyboardKeyDown(KeyboardInput.S))
@@ -119,7 +119,7 @@ namespace MohawkGame2D
 
         void ResetBall(int direction)
         {
-            // Ball appears in the middle after scoring, waiting for space press
+            // player needs to press space to spawn ball after scored point 
             ball.position = new Vector2(windowWidth / 2 - ball.size.X / 2, windowHeight / 2 - ball.size.Y / 2);
             ball.velocity = Vector2.Zero;
             ball.speedMultiplier = 1f;
